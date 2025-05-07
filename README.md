@@ -1,4 +1,5 @@
 # ChatGPT Telegram Bot
+
 ![python-version](https://img.shields.io/badge/python-3.9-blue.svg)
 [![openai-version](https://img.shields.io/badge/openai-1.58.1-orange.svg)](https://openai.com/)
 [![license](https://img.shields.io/badge/License-GPL%202.0-brightgreen.svg)](LICENSE)
@@ -9,13 +10,16 @@ A [Telegram bot](https://core.telegram.org/bots/api) that integrates with OpenAI
 ## Screenshots
 
 ### Demo
+
 ![demo](https://user-images.githubusercontent.com/11541888/225114786-0d639854-b3e1-4214-b49a-e51ce8c40387.png)
 
 ### Plugins
+
 ![plugins](https://github.com/n3d1117/chatgpt-telegram-bot/assets/11541888/83d5e0cd-e09a-463d-a292-722f919e929f)
 
 ## Features
-- [x] Support markdown in answers
+
+- [x] Support markdown in answers.
 - [x] Reset conversation with the `/reset` command
 - [x] Typing indicator while generating a response
 - [x] Access can be restricted by specifying a list of allowed users
@@ -33,8 +37,8 @@ A [Telegram bot](https://core.telegram.org/bots/api) that integrates with OpenAI
   - Available languages :brazil: :cn: :finland: :de: :indonesia: :iran: :it: :malaysia: :netherlands: :poland: :ru: :saudi_arabia: :es: :taiwan: :tr: :ukraine: :gb: :uzbekistan: :vietnam: :israel:
 - [x] Improved inline queries support for group and private chats - by [@bugfloyd](https://github.com/bugfloyd)
   - To use this feature, enable inline queries for your bot in BotFather via the `/setinline` [command](https://core.telegram.org/bots/inline)
-- [x] Support *new models* [announced on June 13, 2023](https://openai.com/blog/function-calling-and-other-api-updates)
-- [x] Support *functions* (plugins) to extend the bot's functionality with 3rd party services
+- [x] Support _new models_ [announced on June 13, 2023](https://openai.com/blog/function-calling-and-other-api-updates)
+- [x] Support _functions_ (plugins) to extend the bot's functionality with 3rd party services
   - Weather, Spotify, Web search, text-to-speech and more. See [here](#available-plugins) for a list of available plugins
 - [x] Support unofficial OpenAI-compatible APIs - by [@kristaller486](https://github.com/kristaller486)
 - [x] (NEW!) Support GPT-4 Turbo and DALL·E 3 [announced on November 6, 2023](https://openai.com/blog/new-models-and-developer-products-announced-at-devday) - by [@AlexHTW](https://github.com/AlexHTW)
@@ -43,13 +47,15 @@ A [Telegram bot](https://core.telegram.org/bots/api) that integrates with OpenAI
 - [x] (NEW!) GPT-4o model support [announced on May 12, 2024](https://openai.com/index/hello-gpt-4o/) - by [@err09r](https://github.com/err09r)
 - [x] (NEW!) o1 and o1-mini model preliminary support
 
-## Additional features - help needed!
+## Additional features - help needed
+
 If you'd like to help, check out the [issues](https://github.com/n3d1117/chatgpt-telegram-bot/issues) section and contribute!  
 If you want to help with translations, check out the [Translations Manual](https://github.com/n3d1117/chatgpt-telegram-bot/discussions/219)
 
 PRs are always welcome!
 
 ## Prerequisites
+
 - Python 3.9+
 - A [Telegram bot](https://core.telegram.org/bots#6-botfather) and its token (see [tutorial](https://core.telegram.org/bots/tutorial#obtain-your-bot-token))
 - An [OpenAI](https://openai.com) account (see [configuration](#configuration) section)
@@ -57,6 +63,7 @@ PRs are always welcome!
 ## Getting started
 
 ### Configuration
+
 Customize the configuration by copying `.env.example` and renaming it to `.env`, then editing the required parameters as desired:
 
 | Parameter                   | Description                                                                                                                                                                                                                   |
@@ -64,26 +71,29 @@ Customize the configuration by copying `.env.example` and renaming it to `.env`,
 | `OPENAI_API_KEY`            | Your OpenAI API key, you can get it from [here](https://platform.openai.com/account/api-keys)                                                                                                                                 |
 | `TELEGRAM_BOT_TOKEN`        | Your Telegram bot's token, obtained using [BotFather](http://t.me/botfather) (see [tutorial](https://core.telegram.org/bots/tutorial#obtain-your-bot-token))                                                                  |
 | `ADMIN_USER_IDS`            | Telegram user IDs of admins. These users have access to special admin commands, information and no budget restrictions. Admin IDs don't have to be added to `ALLOWED_TELEGRAM_USER_IDS`. **Note**: by default, no admin (`-`) |
-| `ALLOWED_TELEGRAM_USER_IDS` | A comma-separated list of Telegram user IDs that are allowed to interact with the bot (use [getidsbot](https://t.me/getidsbot) to find your user ID). **Note**: by default, *everyone* is allowed (`*`)                       |
+| `ALLOWED_TELEGRAM_USER_IDS` | A comma-separated list of Telegram user IDs that are allowed to interact with the bot (use [getidsbot](https://t.me/getidsbot) to find your user ID). **Note**: by default, _everyone_ is allowed (`*`)                       |
 
 ### Optional configuration
+
 The following parameters are optional and can be set in the `.env` file:
 
 #### Budgets
+
 | Parameter             | Description                                                                                                                                                                                                                                                                                                                                                                               | Default value      |
 |-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
-| `BUDGET_PERIOD`       | Determines the time frame all budgets are applied to. Available periods: `daily` *(resets budget every day)*, `monthly` *(resets budgets on the first of each month)*, `all-time` *(never resets budget)*. See the [Budget Manual](https://github.com/n3d1117/chatgpt-telegram-bot/discussions/184) for more information                                                                  | `monthly`          |
-| `USER_BUDGETS`        | A comma-separated list of $-amounts per user from list `ALLOWED_TELEGRAM_USER_IDS` to set custom usage limit of OpenAI API costs for each. For `*`- user lists the first `USER_BUDGETS` value is given to every user. **Note**: by default, *no limits* for any user (`*`). See the [Budget Manual](https://github.com/n3d1117/chatgpt-telegram-bot/discussions/184) for more information | `*`                |
+| `BUDGET_PERIOD`       | Determines the time frame all budgets are applied to. Available periods: `daily` _(resets budget every day)_, `monthly` _(resets budgets on the first of each month)_, `all-time` _(never resets budget)_. See the [Budget Manual](https://github.com/n3d1117/chatgpt-telegram-bot/discussions/184) for more information                                                                  | `monthly`          |
+| `USER_BUDGETS`        | A comma-separated list of $-amounts per user from list `ALLOWED_TELEGRAM_USER_IDS` to set custom usage limit of OpenAI API costs for each. For `*`- user lists the first `USER_BUDGETS` value is given to every user. **Note**: by default, _no limits_ for any user (`*`). See the [Budget Manual](https://github.com/n3d1117/chatgpt-telegram-bot/discussions/184) for more information | `*`                |
 | `GUEST_BUDGET`        | $-amount as usage limit for all guest users. Guest users are users in group chats that are not in the `ALLOWED_TELEGRAM_USER_IDS` list. Value is ignored if no usage limits are set in user budgets (`USER_BUDGETS`=`*`). See the [Budget Manual](https://github.com/n3d1117/chatgpt-telegram-bot/discussions/184) for more information                                                   | `100.0`            |
-| `TOKEN_PRICE`         | $-price per 1000 tokens used to compute cost information in usage statistics. Source: https://openai.com/pricing                                                                                                                                                                                                                                                                          | `0.002`            |
-| `IMAGE_PRICES`        | A comma-separated list with 3 elements of prices for the different image sizes: `256x256`, `512x512` and `1024x1024`. Source: https://openai.com/pricing                                                                                                                                                                                                                                  | `0.016,0.018,0.02` |
-| `TRANSCRIPTION_PRICE` | USD-price for one minute of audio transcription. Source: https://openai.com/pricing                                                                                                                                                                                                                                                                                                       | `0.006`            |
-| `VISION_TOKEN_PRICE`  | USD-price per 1K tokens of image interpretation. Source: https://openai.com/pricing                                                                                                                                                                                                                                                                                                       | `0.01`             |
-| `TTS_PRICES`          | A comma-separated list with prices for the tts models: `tts-1`, `tts-1-hd`. Source: https://openai.com/pricing                                                                                                                                                                                                                                                                            | `0.015,0.030`      |
+| `TOKEN_PRICE`         | $-price per 1000 tokens used to compute cost information in usage statistics. Source: <https://openai.com/pricing>                                                                                                                                                                                                                                                                          | `0.002`            |
+| `IMAGE_PRICES`        | A comma-separated list with 3 elements of prices for the different image sizes: `256x256`, `512x512` and `1024x1024`. Source: <https://openai.com/pricing>                                                                                                                                                                                                                                  | `0.016,0.018,0.02` |
+| `TRANSCRIPTION_PRICE` | USD-price for one minute of audio transcription. Source: <https://openai.com/pricing>                                                                                                                                                                                                                                                                                                       | `0.006`            |
+| `VISION_TOKEN_PRICE`  | USD-price per 1K tokens of image interpretation. Source: <https://openai.com/pricing>                                                                                                                                                                                                                                                                                                       | `0.01`             |
+| `TTS_PRICES`          | A comma-separated list with prices for the tts models: `tts-1`, `tts-1-hd`. Source: <https://openai.com/pricing>                                                                                                                                                                                                                                                                            | `0.015,0.030`      |
 
 Check out the [Budget Manual](https://github.com/n3d1117/chatgpt-telegram-bot/discussions/184) for possible budget configurations.
 
 #### Additional optional configuration options
+
 | Parameter                           | Description                                                                                                                                                                                                                                                                             | Default value                      |
 |-------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------|
 | `ENABLE_QUOTING`                    | Whether to enable message quoting in private chats                                                                                                                                                                                                                                      | `true`                             |
@@ -129,6 +139,7 @@ Check out the [Budget Manual](https://github.com/n3d1117/chatgpt-telegram-bot/di
 Check out the [official API reference](https://platform.openai.com/docs/api-reference/chat) for more details.
 
 #### Functions
+
 | Parameter                         | Description                                                                                                                                      | Default value                       |
 |-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
 | `ENABLE_FUNCTIONS`                | Whether to use functions (aka plugins). You can read more about functions [here](https://openai.com/blog/function-calling-and-other-api-updates) | `true` (if available for the model) |
@@ -137,6 +148,7 @@ Check out the [official API reference](https://platform.openai.com/docs/api-refe
 | `SHOW_PLUGINS_USED`               | Whether to show which plugins were used for a response                                                                                           | `false`                             |
 
 #### Available plugins
+
 | Name                      | Description                                                                                                                                         | Required environment variable(s)                                     | Dependency          |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|---------------------|
 | `weather`                 | Daily weather and 7-day forecast for any location (powered by [Open-Meteo](https://open-meteo.com))                                                 | -                                                                    |                     |
@@ -155,6 +167,7 @@ Check out the [official API reference](https://platform.openai.com/docs/api-refe
 | `auto_tts`                | Text to speech using OpenAI APIs - by [@Jipok](https://github.com/Jipok)                                                                            | -                                                                    |                     |
 
 #### Environment variables
+
 | Variable                          | Description                                                                                                                                                                                     | Default value                       |
 |-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
 | `WOLFRAM_APP_ID`                  | Wolfram Alpha APP ID (required only for the `wolfram` plugin, you can get one [here](https://products.wolframalpha.com/simple-api/documentation))                                               | -                                   |
@@ -166,47 +179,56 @@ Check out the [official API reference](https://platform.openai.com/docs/api-refe
 | `DEEPL_API_KEY`                   | DeepL API key (required for the `deepl` plugin, you can get one [here](https://www.deepl.com/pro-api?cta=header-pro-api))                                                                       | -                                   |
 
 ### Installing
+
 Clone the repository and navigate to the project directory:
 
 ```shell
 git clone https://github.com/n3d1117/chatgpt-telegram-bot.git
 cd chatgpt-telegram-bot
-```
+```shell
 
 #### From Source
+
 1. Create a virtual environment:
+
 ```shell
 python -m venv venv
-```
+```shell
 
 2. Activate the virtual environment:
+
 ```shell
 # For Linux or macOS:
 source venv/bin/activate
 
 # For Windows:
 venv\Scripts\activate
-```
+```shell
 
 3. Install the dependencies using `requirements.txt` file:
+
 ```shell
 pip install -r requirements.txt
-```
+```shell
 
 4. Use the following command to start the bot:
-```
+
+```py
 python bot/main.py
-```
+```shell
 
 #### Using Docker Compose
 
 Run the following command to build and run the Docker image:
+
 ```shell
 docker compose up
-```
+```shell
 
 #### Ready-to-use Docker images
+
 You can also use the Docker image from [Docker Hub](https://hub.docker.com/r/n3d1117/chatgpt-telegram-bot):
+
 ```shell
 docker pull n3d1117/chatgpt-telegram-bot:latest
 docker run -it --env-file .env n3d1117/chatgpt-telegram-bot
@@ -220,24 +242,30 @@ docker run -it --env-file .env ghcr.io/n3d1117/chatgpt-telegram-bot
 ```
 
 #### Docker manual build
+
 ```shell
 docker build -t chatgpt-telegram-bot .
 docker run -it --env-file .env chatgpt-telegram-bot
 ```
 
 #### Heroku
+
 Here is an example of `Procfile` for deploying using Heroku (thanks [err09r](https://github.com/err09r)!):
-```
+
+```py
 worker: python -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python bot/main.py
 ```
 
 ## Credits
+
 - [ChatGPT](https://chat.openai.com/chat) from [OpenAI](https://openai.com)
 - [python-telegram-bot](https://python-telegram-bot.org)
 - [jiaaro/pydub](https://github.com/jiaaro/pydub)
 
 ## Disclaimer
+
 This is a personal project and is not affiliated with OpenAI in any way.
 
 ## License
+
 This project is released under the terms of the GPL 2.0 license. For more information, see the [LICENSE](LICENSE) file included in the repository.
