@@ -4,6 +4,7 @@ import asyncio
 import logging
 import os
 import io
+import hashlib
 
 from uuid import uuid4
 from telegram import BotCommandScopeAllGroupChats, Update, constants
@@ -37,6 +38,9 @@ class ChatGPTTelegramBot:
         """
         self.config = config
         self.openai = openai
+        self.authenticated_users = set()
+        # Store only the hash of the password for security
+        self.bot_password_hash = os.getenv('TELEGRAM_BOT_PASSWORD_HASH', hashlib.sha256('1234'.encode()).hexdigest())
         bot_language = self.config['bot_language']
         self.commands = [
             BotCommand(command='help', description=localized_text('help_description', bot_language)),
@@ -60,10 +64,14 @@ class ChatGPTTelegramBot:
         self.last_message = {}
         self.inline_queries_cache = {}
 
-    async def help(self, update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
+    async def help(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """
         Shows the help menu.
         """
+        user_id = update.message.from_user.id
+        if user_id not in self.authenticated_users:
+            await update.message.reply_text("يرجى إدخال كلمة المرور لاستخدام البوت.")
+            return
         commands = self.group_commands if is_group_chat(update) else self.commands
         commands_description = [f'/{command.command} - {command.description}' for command in commands]
         bot_language = self.config['bot_language']
@@ -650,13 +658,24 @@ class ChatGPTTelegramBot:
         if update.edited_message or not update.message or update.message.via_bot:
             return
 
+        user_id = update.message.from_user.id
+        text = message_text(update.message).strip()
+        if user_id not in self.authenticated_users:
+            # Hash the input and compare to stored hash
+            input_hash = hashlib.sha256(text.encode()).hexdigest()
+            if input_hash == self.bot_password_hash:
+                self.authenticated_users.add(user_id)
+                await update.message.reply_text("تم التحقق من كلمة المرور بنجاح! يمكنك الآن استخدام البوت.")
+            else:
+                await update.message.reply_text("يرجى إدخال كلمة المرور لاستخدام البوت.")
+            return
+
         if not await self.check_allowed_and_within_budget(update, context):
             return
 
         logging.info(
             f'New message received from user {update.message.from_user.name} (id: {update.message.from_user.id})')
         chat_id = update.effective_chat.id
-        user_id = update.message.from_user.id
         prompt = message_text(update.message)
         self.last_message[chat_id] = prompt
 
