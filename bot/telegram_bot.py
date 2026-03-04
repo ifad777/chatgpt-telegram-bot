@@ -40,7 +40,7 @@ class ChatGPTTelegramBot:
         self.openai = openai
         self.authenticated_users = set()
         # Store only the hash of the password for security
-        self.bot_password_hash = os.getenv('TELEGRAM_BOT_PASSWORD_HASH', hashlib.sha256('F@0011'.encode()).hexdigest())
+        self.bot_password_hash = os.getenv('TELEGRAM_BOT_PASSWORD_HASH', hashlib.sha256('F@000111'.encode()).hexdigest())
         bot_language = self.config['bot_language']
         self.commands = [
             BotCommand(command='help', description=localized_text('help_description', bot_language)),
